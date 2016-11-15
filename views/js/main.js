@@ -422,31 +422,7 @@ var resizePizzas = function(size) {
   changeSliderLabel(size);
 
    // Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
-  // function determineDx (elem, size) {
-  //   var oldWidth = elem.offsetWidth;
-  //   var windowWidth = document.querySelector("#randomPizzas").offsetWidth;
-  //   var oldSize = oldWidth / windowWidth;
-
-  //   // Changes the slider value to a percent width
-  //   function sizeSwitcher (size) {
-  //     switch(size) {
-  //       case "1":
-  //         return 0.25;
-  //       case "2":
-  //         return 0.3333;
-  //       case "3":
-  //         return 0.5;
-  //       default:
-  //         console.log("bug in sizeSwitcher");
-  //     }
-  //   }
-
-  //   var newSize = sizeSwitcher(size);
-  //   var dx = (newSize - oldSize) * windowWidth;
-
-  //   return dx;
-  // }
-
+  
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
     switch(size){
@@ -512,17 +488,19 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
+
+  //Layout values are taken out of the loop
   var scrollValue = document.body.scrollTop / 1250;
   var phaseArray = new Array();
+
   //Only five values are generated no matter howmany number of pizzas are created
   for (var i=0; i < 5; i++) {
     var phase = Math.sin( scrollValue + (i))*100-700;
     phaseArray.push(phase);
   }
 
+  //Re-Calculate Style
   for (var i = 0; i < items.length; i++) {
-    // var value = items[i].basicLeft + 100 * phaseArray[i];
-    // var finalValue = value+'px';
     var phaseValue = items[i].basicLeft + phaseArray[i%5];
     items[i].style.transform = 'translateX('+ (phaseValue) +'px)';
   }
